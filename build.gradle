@@ -1,0 +1,43 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		jcenter()
+		maven { url 'http://repo.spring.io/libs-release' }
+		maven { url 'http://dl.bintray.com/vermeulen-mp/gradle-plugins' }
+	}
+    dependencies {
+        classpath 'io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE'
+		classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE'
+		classpath 'com.wiredforcode:gradle-spawn-plugin:0.6.0'
+    }
+}
+
+group = 'blacarapps'
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'spring-boot'
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'com.wiredforcode.spawn'
+apply plugin: 'war'
+
+repositories {
+	jcenter()
+	maven { url 'http://repo.spring.io/release' }
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+dependencyManagement {
+     imports {
+          mavenBom 'org.springframework.cloud:spring-cloud-config-server:1.0.4.RELEASE'
+     }
+}
+
+dependencies {
+	compile "org.springframework.cloud:spring-cloud-config-server:1.0.4.RELEASE"
+	compile "org.codehaus.groovy:groovy:2.2.2"
+	compile "org.springframework.boot:spring-boot-starter-web:1.2.2.RELEASE"
+	compile "org.springframework.boot:spring-boot-starter-actuator:1.2.2.RELEASE"
+}
